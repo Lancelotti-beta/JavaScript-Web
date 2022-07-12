@@ -33,6 +33,11 @@ function criaElementoDaLista(nome, quantidade) {
 }
 
 function armazenaItensNoLocalStorage(nome, quantidade) {
-    arrayLocal.push(localStorage.setItem('item', nome))
-    arrayLocal.push(localStorage.setItem('quantidade', quantidade))
+    const item = {
+        'nome': nome,
+        'quantidade': quantidade
+    }
+
+    arrayLocal.push(item)
+    localStorage.setItem('item', JSON.stringify(arrayLocal))
 }
