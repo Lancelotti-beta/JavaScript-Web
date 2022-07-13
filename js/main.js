@@ -1,43 +1,47 @@
-
-
 const form = document.getElementById('novoItem')
-const lista = document.getElementById('lista')
+const listaUl = document.getElementById('lista')
 
-const arrayLocal = []
+const arrayLocal = JSON.parse(localStorage.getItem('itens')) || []
+arrayLocal.forEach(elemento => {
+    adicionaNaLista(elemento)
+})
 
 form.addEventListener('submit', e => {
     e.preventDefault()
-
     const nome = e.target.elements['nome']
     const quantidade = e.target.elements['quantidade']
 
-    lista.appendChild(criaElementoDaLista(nome.value, quantidade.value))
+    const itens = {
+        'nome': nome.value,
+        'quantidade': quantidade.value
+    }
+
+    adicionaNaLista(itens)
+    armazenaItensNoLocalStorage(itens)
 
     nome.value = ""
     quantidade.value = ""
 })
 
-function criaElementoDaLista(nome, quantidade) {
+function adicionaNaLista(item) {
+    return listaUl.appendChild(criaItemLi(item))
+}
+
+function criaItemLi(item) {
     //<li class="item"><strong></strong></li>
     const li = document.createElement('li')
     li.classList.add('item')
     const strong = document.createElement('strong')
-    strong.innerHTML = quantidade
-
+    strong.innerHTML = item.quantidade
+    
     li.appendChild(strong)
     //concatenando elemento <strong/> com <li/>
-    li.innerHTML += nome
+    li.innerHTML += item.nome
 
-    armazenaItensNoLocalStorage(nome, quantidade)
     return li
 }
 
-function armazenaItensNoLocalStorage(nome, quantidade) {
-    const item = {
-        'nome': nome,
-        'quantidade': quantidade
-    }
-
+function armazenaItensNoLocalStorage(item) {
     arrayLocal.push(item)
-    localStorage.setItem('item', JSON.stringify(arrayLocal))
+    return localStorage.setItem('itens', JSON.stringify(arrayLocal))
 }
