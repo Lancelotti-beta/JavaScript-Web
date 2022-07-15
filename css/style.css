@@ -113,7 +113,8 @@ html {
     margin: 0 0 1em;
     width: 100%;
     box-sizing: border-box;
-    display: inline-flex;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 1em;
     font-size: 20px;
@@ -130,3 +131,10 @@ html {
     font-weight: 400;
 }
 
+.botao__deleta {
+    border-radius: 50%;
+    border: none;
+    width: 42px;
+    height: 42px;
+    background: #d54141;
+}
